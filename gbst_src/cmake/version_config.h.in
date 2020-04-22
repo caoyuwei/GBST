@@ -1,0 +1,11 @@
+/*!
+ * Copyright 2019 XGBoost contributors
+ */
+#ifndef GBST_VERSION_CONFIG_H_
+#define GBST_VERSION_CONFIG_H_
+
+#define GBST_VER_MAJOR @gbst_VERSION_MAJOR@
+#define GBST_VER_MINOR @gbst_VERSION_MINOR@
+#define GBST_VER_PATCH @gbst_VERSION_PATCH@
+
+#endif  // GBST_VERSION_CONFIG_H_

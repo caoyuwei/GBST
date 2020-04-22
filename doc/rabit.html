@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.rabit module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbst.sklearn module" href="sklearn.html" />
+    <link rel="prev" title="gbst.plotting module" href="plotting.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.rabit">
+<span id="gbst-rabit-module"></span><h1>gbst.rabit module<a class="headerlink" href="#module-gbst.rabit" title="Permalink to this headline">¶</a></h1>
+<p>Distributed XGBoost Rabit related API.</p>
+<dl class="function">
+<dt id="gbst.rabit.allreduce">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">allreduce</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">op</em>, <em class="sig-param">prepare_fun=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.allreduce" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform allreduce, return the result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy array</em>) – Input data.</p></li>
+<li><p><strong>op</strong> (<em>int</em>) – Reduction operators, can be MIN, MAX, SUM, BITOR</p></li>
+<li><p><strong>prepare_fun</strong> (<em>function</em>) – Lazy preprocessing function, if it is not None, prepare_fun(data)
+will be called by the function before performing allreduce, to initialize the data
+If the result of Allreduce can be recovered directly,
+then prepare_fun will NOT be called</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – The result of allreduce, have same shape as data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array_like</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function is not thread-safe.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.broadcast">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">broadcast</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">root</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.broadcast" title="Permalink to this definition">¶</a></dt>
+<dd><p>Broadcast object from one node to all other nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>any type that can be pickled</em>) – Input data, if current rank does not equal root, this can be None</p></li>
+<li><p><strong>root</strong> (<em>int</em>) – Rank of the node to broadcast data from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>object</strong> – the result of broadcast.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.finalize">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">finalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize the process, notify tracker everything is done.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.get_processor_name">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">get_processor_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.get_processor_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the processor name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>name</strong> – the name of processor(host)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.get_rank">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">get_rank</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.get_rank" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get rank of current process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>rank</strong> – Rank of current process.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.get_world_size">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">get_world_size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.get_world_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get total number workers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>n</strong> – Total number of process.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.init">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param">args=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the rabit library with arguments</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.tracker_print">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">tracker_print</code><span class="sig-paren">(</span><em class="sig-param">msg</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.tracker_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print message to the tracker.</p>
+<p>This function can be used to communicate the information of
+the progress to the tracker</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>msg</strong> (<em>str</em>) – The message to be printed to tracker.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.rabit.version_number">
+<code class="sig-prename descclassname">gbst.rabit.</code><code class="sig-name descname">version_number</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.rabit.version_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns version number of current stored model.</p>
+<p>This means how many calls to CheckPoint we made so far.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>version</strong> – Version number of currently stored model</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="callback.html">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">gbst.plotting module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.rabit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">gbst.sklearn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="plotting.html" title="previous chapter">gbst.plotting module</a></li>
+      <li>Next: <a href="sklearn.html" title="next chapter">gbst.sklearn module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/rabit.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

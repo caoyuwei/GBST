@@ -1,0 +1,907 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.core module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbst.libpath module" href="libpath.html" />
+    <link rel="prev" title="gbst.compat module" href="compat.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.core">
+<span id="gbst-core-module"></span><h1>gbst.core module<a class="headerlink" href="#module-gbst.core" title="Permalink to this headline">¶</a></h1>
+<p>Core GBST Library.</p>
+<dl class="class">
+<dt id="gbst.core.Booster">
+<em class="property">class </em><code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">Booster</code><span class="sig-paren">(</span><em class="sig-param">params=None</em>, <em class="sig-param">cache=()</em>, <em class="sig-param">model_file=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A Booster of GBST.</p>
+<p>Booster is the model of gbst/xgboost, that contains low level routines for
+training, prediction and evaluation.</p>
+<dl class="method">
+<dt id="gbst.core.Booster.attr">
+<code class="sig-name descname">attr</code><span class="sig-paren">(</span><em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get attribute string from the Booster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>str</em>) – The key to get attribute from.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>value</strong> – The attribute value of the key, returns None if attribute do not exist.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.attributes">
+<code class="sig-name descname">attributes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get attributes stored in the Booster as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>result</strong> – Returns an empty dict if there’s no attributes.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dictionary of  attribute_name: attribute_value pairs of strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Copy the booster object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>booster</strong> – a copied booster model</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><cite>Booster</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.dump_model">
+<code class="sig-name descname">dump_model</code><span class="sig-paren">(</span><em class="sig-param">fout</em>, <em class="sig-param">fmap=''</em>, <em class="sig-param">with_stats=False</em>, <em class="sig-param">dump_format='text'</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.dump_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dump model into a text or JSON file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fout</strong> (<em>string</em><em> or </em><em>os.PathLike</em>) – Output file name.</p></li>
+<li><p><strong>fmap</strong> (<em>string</em><em> or </em><em>os.PathLike</em><em>, </em><em>optional</em>) – Name of the file containing feature map names.</p></li>
+<li><p><strong>with_stats</strong> (<em>bool</em><em>, </em><em>optional</em>) – Controls whether the split statistics are output.</p></li>
+<li><p><strong>dump_format</strong> (<em>string</em><em>, </em><em>optional</em>) – Format of model dump file. Can be ‘text’ or ‘json’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">name='eval'</em>, <em class="sig-param">iteration=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model on mat.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – The dmatrix storing the input.</p></li>
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the dataset.</p></li>
+<li><p><strong>iteration</strong> (<em>int</em><em>, </em><em>optional</em>) – The current iteration number.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – Evaluation result string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.eval_set">
+<code class="sig-name descname">eval_set</code><span class="sig-paren">(</span><em class="sig-param">evals</em>, <em class="sig-param">iteration=0</em>, <em class="sig-param">feval=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.eval_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a set of data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evals</strong> (<em>list of tuples</em><em> (</em><a class="reference internal" href="#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a><em>, </em><em>string</em><em>)</em>) – List of items to be evaluated.</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>) – Current iteration.</p></li>
+<li><p><strong>feval</strong> (<em>function</em>) – Custom evaluation function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – Evaluation result string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gbst.core.Booster.feature_names">
+<code class="sig-name descname">feature_names</code><em class="property"> = None</em><a class="headerlink" href="#gbst.core.Booster.feature_names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.get_dump">
+<code class="sig-name descname">get_dump</code><span class="sig-paren">(</span><em class="sig-param">fmap=''</em>, <em class="sig-param">with_stats=False</em>, <em class="sig-param">dump_format='text'</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.get_dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the model dump as a list of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmap</strong> (<em>string</em><em> or </em><em>os.PathLike</em><em>, </em><em>optional</em>) – Name of the file containing feature map names.</p></li>
+<li><p><strong>with_stats</strong> (<em>bool</em><em>, </em><em>optional</em>) – Controls whether the split statistics are output.</p></li>
+<li><p><strong>dump_format</strong> (<em>string</em><em>, </em><em>optional</em>) – Format of model dump. Can be ‘text’, ‘json’ or ‘dot’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.get_fscore">
+<code class="sig-name descname">get_fscore</code><span class="sig-paren">(</span><em class="sig-param">fmap=''</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.get_fscore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get feature importance of each feature.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Feature importance is defined only for tree boosters</p>
+<p>Feature importance is only defined when the decision tree model is chosen as base
+learner (<cite>booster=gbtree</cite>). It is not defined for other base learner types, such
+as linear learners (<cite>booster=gblinear</cite>).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Zero-importance features will not be included</p>
+<p>Keep in mind that this function does not include zero-importance feature, i.e.
+those features that have not been used in any split conditions.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fmap</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.get_score">
+<code class="sig-name descname">get_score</code><span class="sig-paren">(</span><em class="sig-param">fmap=''</em>, <em class="sig-param">importance_type='weight'</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.get_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get feature importance of each feature.
+Importance type can be defined as:</p>
+<ul class="simple">
+<li><p>‘weight’: the number of times a feature is used to split the data across all trees.</p></li>
+<li><p>‘gain’: the average gain across all splits the feature is used in.</p></li>
+<li><p>‘cover’: the average coverage across all splits the feature is used in.</p></li>
+<li><p>‘total_gain’: the total gain across all splits the feature is used in.</p></li>
+<li><p>‘total_cover’: the total coverage across all splits the feature is used in.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Feature importance is defined only for tree boosters</p>
+<p>Feature importance is only defined when the decision tree model is chosen as base
+learner (<cite>booster=gbtree</cite>). It is not defined for other base learner types, such
+as linear learners (<cite>booster=gblinear</cite>).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fmap</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file.</p></li>
+<li><p><strong>importance_type</strong> (<em>str</em><em>, </em><em>default 'weight'</em>) – One of the importance types defined above.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.get_split_value_histogram">
+<code class="sig-name descname">get_split_value_histogram</code><span class="sig-paren">(</span><em class="sig-param">feature</em>, <em class="sig-param">fmap=''</em>, <em class="sig-param">bins=None</em>, <em class="sig-param">as_pandas=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.get_split_value_histogram" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get split value histogram of a feature</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>feature</strong> (<em>str</em>) – The name of the feature.</p></li>
+<li><p><strong>fmap</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file.</p></li>
+<li><p><strong>bin</strong> (<em>int</em><em>, </em><em>default None</em>) – The maximum number of bins.
+Number of bins equals number of unique split values n_unique,
+if bins == None or bins &gt; n_unique.</p></li>
+<li><p><strong>as_pandas</strong> (<em>bool</em><em>, </em><em>default True</em>) – Return pd.DataFrame when pandas is installed.
+If False or pandas is not installed, return numpy ndarray.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>a histogram of used splitting values for the specified feature</em></p></li>
+<li><p><em>either as numpy array or pandas DataFrame.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.load_config">
+<code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param">config</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration returned by <cite>save_config</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.load_model">
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the model from a file, local or as URI.</p>
+<p>The model is loaded from an XGBoost format which is universal among the
+various XGBoost interfaces. Auxiliary attributes of the Python Booster
+object (such as feature_names) will not be loaded.  To preserve all
+attributes, pickle the Booster object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>string</em><em>, </em><em>os.PathLike</em><em>, or </em><em>a memory buffer</em>) – Input file name or memory buffer(see also save_raw)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.load_rabit_checkpoint">
+<code class="sig-name descname">load_rabit_checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.load_rabit_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the model by load from rabit checkpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>version</strong> – The version number of the model.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>integer</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">output_margin=False</em>, <em class="sig-param">ntree_limit=0</em>, <em class="sig-param">pred_leaf=False</em>, <em class="sig-param">pred_contribs=False</em>, <em class="sig-param">approx_contribs=False</em>, <em class="sig-param">pred_interactions=False</em>, <em class="sig-param">validate_features=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict with data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is not thread safe.</p>
+<p>For each booster object, predict can only be called from one thread.
+If you want to run prediction using multiple thread, call <code class="docutils literal notranslate"><span class="pre">bst.copy()</span></code> to make copies
+of model object and then call <code class="docutils literal notranslate"><span class="pre">predict()</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">bst</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">ntree_limit</span><span class="o">=</span><span class="n">num_round</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – The dmatrix storing the input.</p></li>
+<li><p><strong>output_margin</strong> (<em>bool</em>) – Whether to output the raw untransformed margin value.</p></li>
+<li><p><strong>ntree_limit</strong> (<em>int</em>) – Limit number of trees in the prediction; defaults to 0 (use all trees).</p></li>
+<li><p><strong>pred_leaf</strong> (<em>bool</em>) – When this option is on, the output will be a matrix of (nsample, ntrees)
+with each record indicating the predicted leaf index of each sample in each tree.
+Note that the leaf index of a tree is unique per tree, so you may find leaf 1
+in both tree 1 and tree 0.</p></li>
+<li><p><strong>pred_contribs</strong> (<em>bool</em>) – When this is True the output will be a matrix of size (nsample, nfeats + 1)
+with each record indicating the feature contributions (SHAP values) for that
+prediction. The sum of all feature contributions is equal to the raw untransformed
+margin value of the prediction. Note the final column is the bias term.</p></li>
+<li><p><strong>approx_contribs</strong> (<em>bool</em>) – Approximate the contributions of each feature</p></li>
+<li><p><strong>pred_interactions</strong> (<em>bool</em>) – When this is True the output will be a matrix of size (nsample, nfeats + 1, nfeats + 1)
+indicating the SHAP interaction values for each pair of features. The sum of each
+row (or column) of the interaction values equals the corresponding SHAP value (from
+pred_contribs), and the sum of the entire matrix equals the raw untransformed margin
+value of the prediction. Note the last row and column correspond to the bias term.</p></li>
+<li><p><strong>validate_features</strong> (<em>bool</em>) – When this is True, validate that the Booster’s and data’s
+feature_names are identical.  Otherwise, it is assumed that the
+feature_names are the same.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>prediction</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.save_config">
+<code class="sig-name descname">save_config</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.save_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output internal parameter configuration of Booster as a JSON
+string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.save_model">
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model to a file.</p>
+<p>The model is saved in an XGBoost internal format which is universal
+among the various XGBoost interfaces. Auxiliary attributes of the
+Python Booster object (such as feature_names) will not be saved.  To
+preserve all attributes, pickle the Booster object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>string</em><em> or </em><em>os.PathLike</em>) – Output file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.save_rabit_checkpoint">
+<code class="sig-name descname">save_rabit_checkpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.save_rabit_checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current booster to rabit checkpoint.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.save_raw">
+<code class="sig-name descname">save_raw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.save_raw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model to an in-memory buffer representation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>an in-memory buffer representation of the model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.set_attr">
+<code class="sig-name descname">set_attr</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.set_attr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the attribute of the Booster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> – The attributes to set. Setting a value to None deletes an attribute.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.set_param">
+<code class="sig-name descname">set_param</code><span class="sig-paren">(</span><em class="sig-param">params</em>, <em class="sig-param">value=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.set_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameters into the Booster.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict/list/str</em>) – list of key,value pairs, dict of key to value or simply str key</p></li>
+<li><p><strong>value</strong> (<em>optional</em>) – value of the specified parameter, when params is str key</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.trees_to_dataframe">
+<code class="sig-name descname">trees_to_dataframe</code><span class="sig-paren">(</span><em class="sig-param">fmap=''</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.trees_to_dataframe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a boosted tree model text dump into a pandas DataFrame structure.</p>
+<p>This feature is only defined when the decision tree model is chosen as base
+learner (<cite>booster in {gbtree, dart}</cite>). It is not defined for other base learner
+types, such as linear learners (<cite>booster=gblinear</cite>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fmap</strong> (<em>str</em><em> or </em><em>os.PathLike</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.Booster.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">dtrain</em>, <em class="sig-param">iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.Booster.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update for one iteration, with objective function calculated
+internally.  This function should not be called directly by users.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtrain</strong> (<a class="reference internal" href="#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – Training data.</p></li>
+<li><p><strong>iteration</strong> (<em>int</em>) – Current iteration number.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="gbst.core.CallbackEnv">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">CallbackEnv</code><a class="headerlink" href="#gbst.core.CallbackEnv" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">gbst.core.gbstCallbackEnv</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="gbst.core.DMatrix">
+<em class="property">class </em><code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">DMatrix</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">label=None</em>, <em class="sig-param">missing=None</em>, <em class="sig-param">weight=None</em>, <em class="sig-param">silent=False</em>, <em class="sig-param">feature_names=None</em>, <em class="sig-param">feature_types=None</em>, <em class="sig-param">nthread=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Data Matrix used in GBST.</p>
+<p>DMatrix is a internal data structure that used by GBST
+which is optimized for both memory efficiency and training speed.
+You can construct DMatrix from numpy.arrays</p>
+<dl class="method">
+<dt id="gbst.core.DMatrix.feature_names">
+<em class="property">property </em><code class="sig-name descname">feature_names</code><a class="headerlink" href="#gbst.core.DMatrix.feature_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get feature names (column labels).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>feature_names</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.feature_types">
+<em class="property">property </em><code class="sig-name descname">feature_types</code><a class="headerlink" href="#gbst.core.DMatrix.feature_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get feature types (column types).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>feature_types</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.get_base_margin">
+<code class="sig-name descname">get_base_margin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.get_base_margin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the base margin of the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>base_margin</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.get_float_info">
+<code class="sig-name descname">get_float_info</code><span class="sig-paren">(</span><em class="sig-param">field</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.get_float_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get float property from the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> (<em>str</em>) – The field name of the information</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>info</strong> – a numpy array of float information of the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.get_label">
+<code class="sig-name descname">get_label</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.get_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the label of the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>label</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.get_uint_info">
+<code class="sig-name descname">get_uint_info</code><span class="sig-paren">(</span><em class="sig-param">field</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.get_uint_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get unsigned integer property from the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field</strong> (<em>str</em>) – The field name of the information</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>info</strong> – a numpy array of unsigned integer information of the data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.get_weight">
+<code class="sig-name descname">get_weight</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.get_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the weight of the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>weight</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.num_col">
+<code class="sig-name descname">num_col</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.num_col" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of columns (features) in the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>number of columns</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.num_row">
+<code class="sig-name descname">num_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.num_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the number of rows in the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>number of rows</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.save_binary">
+<code class="sig-name descname">save_binary</code><span class="sig-paren">(</span><em class="sig-param">fname</em>, <em class="sig-param">silent=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.save_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save DMatrix to an XGBoost buffer.  Saved binary can be later loaded
+by providing the path to <code class="xref py py-func docutils literal notranslate"><span class="pre">xgboost.DMatrix()</span></code> as input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<em>string</em><em> or </em><em>os.PathLike</em>) – Name of the output buffer file.</p></li>
+<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional; default: True</em><em>)</em>) – If set, the output is suppressed.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_base_margin">
+<code class="sig-name descname">set_base_margin</code><span class="sig-paren">(</span><em class="sig-param">margin</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_base_margin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set base margin of booster to start from.</p>
+<p>This can be used to specify a prediction value of
+existing model to be base_margin
+However, remember margin is needed, instead of transformed prediction
+e.g. for logistic regression: need to put in value before logistic transformation
+see also example/demo.py</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>margin</strong> (<em>array like</em>) – Prediction margin of each datapoint</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_float_info">
+<code class="sig-name descname">set_float_info</code><span class="sig-paren">(</span><em class="sig-param">field</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_float_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set float type property into the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<em>str</em>) – The field name of the information</p></li>
+<li><p><strong>data</strong> (<em>numpy array</em>) – The array of data to be set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_float_info_npy2d">
+<code class="sig-name descname">set_float_info_npy2d</code><span class="sig-paren">(</span><em class="sig-param">field</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_float_info_npy2d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Set float type property into the DMatrix</dt><dd><p>for numpy 2d array input</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<em>str</em>) – The field name of the information</p></li>
+<li><p><strong>data</strong> (<em>numpy array</em>) – The array of data to be set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_group">
+<code class="sig-name descname">set_group</code><span class="sig-paren">(</span><em class="sig-param">group</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set group size of DMatrix (used for ranking).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>group</strong> (<em>array like</em>) – Group size of each group</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_interface_info">
+<code class="sig-name descname">set_interface_info</code><span class="sig-paren">(</span><em class="sig-param">field</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_interface_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set info type peoperty into DMatrix.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_label">
+<code class="sig-name descname">set_label</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set label of dmatrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>label</strong> (<em>array like</em>) – The label information to be set into DMatrix</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_label_npy2d">
+<code class="sig-name descname">set_label_npy2d</code><span class="sig-paren">(</span><em class="sig-param">label</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_label_npy2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set label of dmatrix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>label</strong> (<em>array like</em>) – The label information to be set into DMatrix
+from numpy 2D array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_uint_info">
+<code class="sig-name descname">set_uint_info</code><span class="sig-paren">(</span><em class="sig-param">field</em>, <em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_uint_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set uint type property into the DMatrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>field</strong> (<em>str</em>) – The field name of the information</p></li>
+<li><p><strong>data</strong> (<em>numpy array</em>) – The array of data to be set</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_weight">
+<code class="sig-name descname">set_weight</code><span class="sig-paren">(</span><em class="sig-param">weight</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set weight of each instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weight</strong> (<em>array like</em>) – <p>Weight for each data point</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For ranking task, weights are per-group.</p>
+<p>In ranking task, one weight is assigned to each group (not each data
+point). This is because we only care about the relative ordering of
+data points within each group, so it doesn’t make sense to assign
+weights to individual data points.</p>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.set_weight_npy2d">
+<code class="sig-name descname">set_weight_npy2d</code><span class="sig-paren">(</span><em class="sig-param">weight</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.set_weight_npy2d" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Set weight of each instance</dt><dd><p>for numpy 2D array</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>weight</strong> (<em>array like</em>) – <p>Weight for each data point in numpy 2D array</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For ranking task, weights are per-group.</p>
+<p>In ranking task, one weight is assigned to each group (not each data
+point). This is because we only care about the relative ordering of
+data points within each group, so it doesn’t make sense to assign
+weights to individual data points.</p>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.core.DMatrix.slice">
+<code class="sig-name descname">slice</code><span class="sig-paren">(</span><em class="sig-param">rindex</em>, <em class="sig-param">allow_groups=False</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.DMatrix.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice the DMatrix and return a new DMatrix that only contains <cite>rindex</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rindex</strong> (<em>list</em>) – List of indices to be selected.</p></li>
+<li><p><strong>allow_groups</strong> (<em>boolean</em>) – Allow slicing of a matrix with a groups attribute</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res</strong> – A new DMatrix containing only selected indices.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#gbst.core.DMatrix" title="gbst.core.DMatrix">DMatrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="gbst.core.EarlyStopException">
+<em class="property">exception </em><code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">EarlyStopException</code><span class="sig-paren">(</span><em class="sig-param">best_iteration</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.EarlyStopException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception to signal early stopping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>best_iteration</strong> (<em>int</em>) – The best iteration stopped.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.c_array">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">c_array</code><span class="sig-paren">(</span><em class="sig-param">ctype</em>, <em class="sig-param">values</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.c_array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a python string to c array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.c_str">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">c_str</code><span class="sig-paren">(</span><em class="sig-param">string</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.c_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a python string to cstring.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.ctypes2buffer">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">ctypes2buffer</code><span class="sig-paren">(</span><em class="sig-param">cptr</em>, <em class="sig-param">length</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.ctypes2buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert ctypes pointer to buffer type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.ctypes2numpy">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">ctypes2numpy</code><span class="sig-paren">(</span><em class="sig-param">cptr</em>, <em class="sig-param">length</em>, <em class="sig-param">dtype</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.ctypes2numpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a ctypes pointer array to a numpy array.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.from_cstr_to_pystr">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">from_cstr_to_pystr</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">length</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.from_cstr_to_pystr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Revert C pointer to Python str</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>ctypes pointer</em>) – pointer to data</p></li>
+<li><p><strong>length</strong> (<em>ctypes pointer</em>) – pointer to length of data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.core.from_pystr_to_cstr">
+<code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">from_pystr_to_cstr</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.core.from_pystr_to_cstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a list of Python str to C pointer</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>list</em>) – list of str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="exception">
+<dt id="gbst.core.gbstError">
+<em class="property">exception </em><code class="sig-prename descclassname">gbst.core.</code><code class="sig-name descname">gbstError</code><a class="headerlink" href="#gbst.core.gbstError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Error thrown by gbst trainer.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="callback.html">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">gbst.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rabit.html">gbst.rabit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">gbst.sklearn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="compat.html" title="previous chapter">gbst.compat module</a></li>
+      <li>Next: <a href="libpath.html" title="next chapter">gbst.libpath module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/core.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

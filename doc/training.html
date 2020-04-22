@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.training module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="gbst.sklearn module" href="sklearn.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.training">
+<span id="gbst-training-module"></span><h1>gbst.training module<a class="headerlink" href="#module-gbst.training" title="Permalink to this headline">¶</a></h1>
+<p>Training Library containing training routines.</p>
+<dl class="class">
+<dt id="gbst.training.CVPack">
+<em class="property">class </em><code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">CVPack</code><span class="sig-paren">(</span><em class="sig-param">dtrain</em>, <em class="sig-param">dtest</em>, <em class="sig-param">param</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.CVPack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>“Auxiliary datastruct to hold one fold of CV.</p>
+<dl class="method">
+<dt id="gbst.training.CVPack.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param">iteration</em>, <em class="sig-param">feval</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.CVPack.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Evaluate the CVPack for one iteration.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.training.CVPack.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">iteration</em>, <em class="sig-param">fobj</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.CVPack.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>“Update the boosters for one iteration</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.aggcv">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">aggcv</code><span class="sig-paren">(</span><em class="sig-param">rlist</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.aggcv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Aggregate cross-validation results.</p>
+<p>If verbose_eval is true, progress is displayed in every call. If
+verbose_eval is an integer, progress will only be displayed every
+<cite>verbose_eval</cite> trees, tracked via trial.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.cv">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">cv</code><span class="sig-paren">(</span><em class="sig-param">params</em>, <em class="sig-param">dtrain</em>, <em class="sig-param">num_boost_round=10</em>, <em class="sig-param">nfold=3</em>, <em class="sig-param">stratified=False</em>, <em class="sig-param">folds=None</em>, <em class="sig-param">metrics=()</em>, <em class="sig-param">obj=None</em>, <em class="sig-param">feval=None</em>, <em class="sig-param">maximize=False</em>, <em class="sig-param">early_stopping_rounds=None</em>, <em class="sig-param">fpreproc=None</em>, <em class="sig-param">as_pandas=True</em>, <em class="sig-param">verbose_eval=None</em>, <em class="sig-param">show_stdv=True</em>, <em class="sig-param">seed=0</em>, <em class="sig-param">callbacks=None</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.cv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cross-validation with given parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Booster params.</p></li>
+<li><p><strong>dtrain</strong> (<a class="reference internal" href="core.html#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – Data to be trained.</p></li>
+<li><p><strong>num_boost_round</strong> (<em>int</em>) – Number of boosting iterations.</p></li>
+<li><p><strong>nfold</strong> (<em>int</em>) – Number of folds in CV.</p></li>
+<li><p><strong>stratified</strong> (<em>bool</em>) – Perform stratified sampling.</p></li>
+<li><p><strong>folds</strong> (<em>a KFold</em><em> or </em><em>StratifiedKFold instance</em><em> or </em><em>list of fold indices</em>) – Sklearn KFolds or StratifiedKFolds object.
+Alternatively may explicitly pass sample indices for each fold.
+For <code class="docutils literal notranslate"><span class="pre">n</span></code> folds, <strong>folds</strong> should be a length <code class="docutils literal notranslate"><span class="pre">n</span></code> list of tuples.
+Each tuple is <code class="docutils literal notranslate"><span class="pre">(in,out)</span></code> where <code class="docutils literal notranslate"><span class="pre">in</span></code> is a list of indices to be used
+as the training samples for the <code class="docutils literal notranslate"><span class="pre">n</span></code> th fold and <code class="docutils literal notranslate"><span class="pre">out</span></code> is a list of
+indices to be used as the testing samples for the <code class="docutils literal notranslate"><span class="pre">n</span></code> th fold.</p></li>
+<li><p><strong>metrics</strong> (<em>string</em><em> or </em><em>list of strings</em>) – Evaluation metrics to be watched in CV.</p></li>
+<li><p><strong>obj</strong> (<em>function</em>) – Custom objective function.</p></li>
+<li><p><strong>feval</strong> (<em>function</em>) – Custom evaluation function.</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – Whether to maximize feval.</p></li>
+<li><p><strong>early_stopping_rounds</strong> (<em>int</em>) – Activates early stopping. Cross-Validation metric (average of validation
+metric computed over CV folds) needs to improve at least once in
+every <strong>early_stopping_rounds</strong> round(s) to continue training.
+The last entry in the evaluation history will represent the best iteration.
+If there’s more than one metric in the <strong>eval_metric</strong> parameter given in
+<strong>params</strong>, the last metric will be used for early stopping.</p></li>
+<li><p><strong>fpreproc</strong> (<em>function</em>) – Preprocessing function that takes (dtrain, dtest, param) and returns
+transformed versions of those.</p></li>
+<li><p><strong>as_pandas</strong> (<em>bool</em><em>, </em><em>default True</em>) – Return pd.DataFrame when pandas is installed.
+If False or pandas is not installed, return np.ndarray</p></li>
+<li><p><strong>verbose_eval</strong> (<em>bool</em><em>, </em><em>int</em><em>, or </em><em>None</em><em>, </em><em>default None</em>) – Whether to display the progress. If None, progress will be displayed
+when np.ndarray is returned. If True, progress will be displayed at
+boosting stage. If an integer is given, progress will be displayed
+at every given <cite>verbose_eval</cite> boosting stage.</p></li>
+<li><p><strong>show_stdv</strong> (<em>bool</em><em>, </em><em>default True</em>) – Whether to display the standard deviation in progress.
+Results are not affected, and always contains std.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Seed used to generate the folds (passed to numpy.random.seed).</p></li>
+<li><p><strong>callbacks</strong> (<em>list of callback functions</em>) – <p>List of callback functions that are applied at end of each iteration.
+It is possible to use predefined callbacks by using
+<span class="xref std std-ref">Callback API</span>.
+Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">gbst</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">reset_learning_rate</span><span class="p">(</span><span class="n">custom_rates</span><span class="p">)]</span>
+</pre></div>
+</div>
+</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em>) – Shuffle data before creating folds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>evaluation history</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.groups_to_rows">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">groups_to_rows</code><span class="sig-paren">(</span><em class="sig-param">groups</em>, <em class="sig-param">boundaries</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.groups_to_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given group row boundaries, convert ground indexes to row indexes
+:param groups: list of groups for testing
+:param boundaries: rows index limits of each group
+:return: row in group</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.mkgroupfold">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">mkgroupfold</code><span class="sig-paren">(</span><em class="sig-param">dall</em>, <em class="sig-param">nfold</em>, <em class="sig-param">param</em>, <em class="sig-param">evals=()</em>, <em class="sig-param">fpreproc=None</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.mkgroupfold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make n folds for cross-validation maintaining groups
+:return: cross-validation folds</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.mknfold">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">mknfold</code><span class="sig-paren">(</span><em class="sig-param">dall</em>, <em class="sig-param">nfold</em>, <em class="sig-param">param</em>, <em class="sig-param">seed</em>, <em class="sig-param">evals=()</em>, <em class="sig-param">fpreproc=None</em>, <em class="sig-param">stratified=False</em>, <em class="sig-param">folds=None</em>, <em class="sig-param">shuffle=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.mknfold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an n-fold list of CVPack from random indices.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.training.train">
+<code class="sig-prename descclassname">gbst.training.</code><code class="sig-name descname">train</code><span class="sig-paren">(</span><em class="sig-param">params</em>, <em class="sig-param">dtrain</em>, <em class="sig-param">num_boost_round=10</em>, <em class="sig-param">evals=()</em>, <em class="sig-param">feval=None</em>, <em class="sig-param">maximize=False</em>, <em class="sig-param">early_stopping_rounds=None</em>, <em class="sig-param">evals_result=None</em>, <em class="sig-param">verbose_eval=True</em>, <em class="sig-param">gbst_model=None</em>, <em class="sig-param">callbacks=None</em>, <em class="sig-param">learning_rates=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.training.train" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train a booster with given parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Booster params.</p></li>
+<li><p><strong>dtrain</strong> (<a class="reference internal" href="core.html#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – Data to be trained.</p></li>
+<li><p><strong>num_boost_round</strong> (<em>int</em>) – Number of boosting iterations.</p></li>
+<li><p><strong>evals</strong> (<em>list of pairs</em><em> (</em><a class="reference internal" href="core.html#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a><em>, </em><em>string</em><em>)</em>) – List of validation sets for which metrics will evaluated during training.
+Validation metrics will help us track the performance of the model.</p></li>
+<li><p><strong>obj</strong> (<em>function</em>) – Customized objective function.</p></li>
+<li><p><strong>feval</strong> (<em>function</em>) – Customized evaluation function.</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – Whether to maximize feval.</p></li>
+<li><p><strong>early_stopping_rounds</strong> (<em>int</em>) – Activates early stopping. Validation metric needs to improve at least once in
+every <strong>early_stopping_rounds</strong> round(s) to continue training.
+Requires at least one item in <strong>evals</strong>.
+The method returns the model from the last iteration (not the best one).
+If there’s more than one item in <strong>evals</strong>, the last entry will be used
+for early stopping.
+If there’s more than one metric in the <strong>eval_metric</strong> parameter given in
+<strong>params</strong>, the last metric will be used for early stopping.
+If early stopping occurs, the model will have three additional fields:
+<code class="docutils literal notranslate"><span class="pre">bst.best_score</span></code>, <code class="docutils literal notranslate"><span class="pre">bst.best_iteration</span></code> and <code class="docutils literal notranslate"><span class="pre">bst.best_ntree_limit</span></code>.
+(Use <code class="docutils literal notranslate"><span class="pre">bst.best_ntree_limit</span></code> to get the correct value if
+<code class="docutils literal notranslate"><span class="pre">num_parallel_tree</span></code> and/or <code class="docutils literal notranslate"><span class="pre">num_class</span></code> appears in the parameters)</p></li>
+<li><p><strong>evals_result</strong> (<em>dict</em>) – <p>This dictionary stores the evaluation results of all the items in watchlist.</p>
+<p>Example: with a watchlist containing
+<code class="docutils literal notranslate"><span class="pre">[(dtest,'eval'),</span> <span class="pre">(dtrain,'train')]</span></code> and
+a parameter containing <code class="docutils literal notranslate"><span class="pre">('eval_metric':</span> <span class="pre">'logloss')</span></code>,
+the <strong>evals_result</strong> returns</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;logloss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.48253&#39;</span><span class="p">,</span> <span class="s1">&#39;0.35953&#39;</span><span class="p">]},</span>
+ <span class="s1">&#39;eval&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;logloss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.480385&#39;</span><span class="p">,</span> <span class="s1">&#39;0.357756&#39;</span><span class="p">]}}</span>
+</pre></div>
+</div>
+</p></li>
+<li><p><strong>verbose_eval</strong> (<em>bool</em><em> or </em><em>int</em>) – Requires at least one item in <strong>evals</strong>.
+If <strong>verbose_eval</strong> is True then the evaluation metric on the validation set is
+printed at each boosting stage.
+If <strong>verbose_eval</strong> is an integer then the evaluation metric on the validation set
+is printed at every given <strong>verbose_eval</strong> boosting stage. The last boosting stage
+/ the boosting stage found by using <strong>early_stopping_rounds</strong> is also printed.
+Example: with <code class="docutils literal notranslate"><span class="pre">verbose_eval=4</span></code> and at least one item in <strong>evals</strong>, an evaluation metric
+is printed every 4 boosting stages, instead of every boosting stage.</p></li>
+<li><p><strong>learning_rates</strong> (<em>list</em><em> or </em><em>function</em><em> (</em><em>deprecated - use callback API instead</em><em>)</em>) – List of learning rate for each boosting round
+or a customized function that calculates eta in terms of
+current number of round and the total number of boosting round (e.g. yields
+learning rate decay)</p></li>
+<li><p><strong>gbst_model</strong> (<em>file name of stored gbst model</em><em> or </em><em>'Booster' instance</em>) – gbst model to be loaded before training (allows training continuation).</p></li>
+<li><p><strong>callbacks</strong> (<em>list of callback functions</em>) – <p>List of callback functions that are applied at end of each iteration.
+It is possible to use predefined callbacks by using
+<span class="xref std std-ref">Callback API</span>.
+Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">gbst</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">reset_learning_rate</span><span class="p">(</span><span class="n">custom_rates</span><span class="p">)]</span>
+</pre></div>
+</div>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Booster</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>a trained booster model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="callback.html">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">gbst.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rabit.html">gbst.rabit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">gbst.sklearn module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="sklearn.html" title="previous chapter">gbst.sklearn module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/training.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

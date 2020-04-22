@@ -1,0 +1,231 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.plotting module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbst.rabit module" href="rabit.html" />
+    <link rel="prev" title="gbst.metrics module" href="metrics.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.plotting">
+<span id="gbst-plotting-module"></span><h1>gbst.plotting module<a class="headerlink" href="#module-gbst.plotting" title="Permalink to this headline">¶</a></h1>
+<p>Plotting Library.</p>
+<dl class="function">
+<dt id="gbst.plotting.plot_importance">
+<code class="sig-prename descclassname">gbst.plotting.</code><code class="sig-name descname">plot_importance</code><span class="sig-paren">(</span><em class="sig-param">booster</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">height=0.2</em>, <em class="sig-param">xlim=None</em>, <em class="sig-param">ylim=None</em>, <em class="sig-param">title='Feature importance'</em>, <em class="sig-param">xlabel='F score'</em>, <em class="sig-param">ylabel='Features'</em>, <em class="sig-param">importance_type='weight'</em>, <em class="sig-param">max_num_features=None</em>, <em class="sig-param">grid=True</em>, <em class="sig-param">show_values=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.plotting.plot_importance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot importance based on fitted trees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booster</strong> (<a class="reference internal" href="core.html#gbst.core.Booster" title="gbst.core.Booster"><em>Booster</em></a><em>, </em><a class="reference internal" href="sklearn.html#gbst.sklearn.gbstModel" title="gbst.sklearn.gbstModel"><em>gbstModel</em></a><em> or </em><em>dict</em>) – Booster or gbstModel instance, or dict taken by Booster.get_fscore()</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib Axes</em><em>, </em><em>default None</em>) – Target axes instance. If None, new figure and axes will be created.</p></li>
+<li><p><strong>grid</strong> (<em>bool</em><em>, </em><em>Turn the axes grids on</em><em> or </em><em>off.  Default is True</em><em> (</em><em>On</em><em>)</em><em></em>) – </p></li>
+<li><p><strong>importance_type</strong> (<em>str</em><em>, </em><em>default &quot;weight&quot;</em>) – <p>How the importance is calculated: either “weight”, “gain”, or “cover”</p>
+<ul>
+<li><p>”weight” is the number of times a feature appears in a tree</p></li>
+<li><p>”gain” is the average gain of splits which use the feature</p></li>
+<li><p>”cover” is the average coverage of splits which use the feature
+where coverage is defined as the number of samples affected by the split</p></li>
+</ul>
+</p></li>
+<li><p><strong>max_num_features</strong> (<em>int</em><em>, </em><em>default None</em>) – Maximum number of top features displayed on plot. If None, all features will be displayed.</p></li>
+<li><p><strong>height</strong> (<em>float</em><em>, </em><em>default 0.2</em>) – Bar height, passed to ax.barh()</p></li>
+<li><p><strong>xlim</strong> (<em>tuple</em><em>, </em><em>default None</em>) – Tuple passed to axes.xlim()</p></li>
+<li><p><strong>ylim</strong> (<em>tuple</em><em>, </em><em>default None</em>) – Tuple passed to axes.ylim()</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>default &quot;Feature importance&quot;</em>) – Axes title. To disable, pass None.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>default &quot;F score&quot;</em>) – X axis title label. To disable, pass None.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>default &quot;Features&quot;</em>) – Y axis title label. To disable, pass None.</p></li>
+<li><p><strong>show_values</strong> (<em>bool</em><em>, </em><em>default True</em>) – Show values on plot. To disable, pass False.</p></li>
+<li><p><strong>kwargs</strong> – Other keywords passed to ax.barh()</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ax</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib Axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.plotting.plot_tree">
+<code class="sig-prename descclassname">gbst.plotting.</code><code class="sig-name descname">plot_tree</code><span class="sig-paren">(</span><em class="sig-param">booster</em>, <em class="sig-param">fmap=''</em>, <em class="sig-param">num_trees=0</em>, <em class="sig-param">rankdir=None</em>, <em class="sig-param">ax=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.plotting.plot_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot specified tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booster</strong> (<a class="reference internal" href="core.html#gbst.core.Booster" title="gbst.core.Booster"><em>Booster</em></a><em>, </em><em>XGBModel</em>) – Booster or XGBModel instance</p></li>
+<li><p><strong>fmap</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file</p></li>
+<li><p><strong>num_trees</strong> (<em>int</em><em>, </em><em>default 0</em>) – Specify the ordinal number of target tree</p></li>
+<li><p><strong>rankdir</strong> (<em>str</em><em>, </em><em>default &quot;TB&quot;</em>) – Passed to graphiz via graph_attr</p></li>
+<li><p><strong>ax</strong> (<em>matplotlib Axes</em><em>, </em><em>default None</em>) – Target axes instance. If None, new figure and axes will be created.</p></li>
+<li><p><strong>kwargs</strong> – Other keywords passed to to_graphviz</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>ax</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib Axes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.plotting.to_graphviz">
+<code class="sig-prename descclassname">gbst.plotting.</code><code class="sig-name descname">to_graphviz</code><span class="sig-paren">(</span><em class="sig-param">booster</em>, <em class="sig-param">fmap=''</em>, <em class="sig-param">num_trees=0</em>, <em class="sig-param">rankdir=None</em>, <em class="sig-param">yes_color=None</em>, <em class="sig-param">no_color=None</em>, <em class="sig-param">condition_node_params=None</em>, <em class="sig-param">leaf_node_params=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.plotting.to_graphviz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert specified tree to graphviz instance. IPython can automatically plot
+the returned graphiz instance. Otherwise, you should call .render() method
+of the returned graphiz instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booster</strong> (<a class="reference internal" href="core.html#gbst.core.Booster" title="gbst.core.Booster"><em>Booster</em></a><em>, </em><a class="reference internal" href="sklearn.html#gbst.sklearn.gbstModel" title="gbst.sklearn.gbstModel"><em>gbstModel</em></a>) – Booster or gbstModel instance</p></li>
+<li><p><strong>fmap</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – The name of feature map file</p></li>
+<li><p><strong>num_trees</strong> (<em>int</em><em>, </em><em>default 0</em>) – Specify the ordinal number of target tree</p></li>
+<li><p><strong>rankdir</strong> (<em>str</em><em>, </em><em>default &quot;UT&quot;</em>) – Passed to graphiz via graph_attr</p></li>
+<li><p><strong>yes_color</strong> (<em>str</em><em>, </em><em>default '#0000FF'</em>) – Edge color when meets the node condition.</p></li>
+<li><p><strong>no_color</strong> (<em>str</em><em>, </em><em>default '#FF0000'</em>) – Edge color when doesn’t meet the node condition.</p></li>
+<li><p><strong>condition_node_params</strong> (<em>dict</em><em> (</em><em>optional</em><em>)</em>) – <p>Condition node configuration for for graphviz.  Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>{‘shape’: ‘box’,</dt><dd><p>’style’: ‘filled,rounded’,
+‘fillcolor’: ‘#78bceb’}</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>leaf_node_params</strong> (<em>dict</em><em> (</em><em>optional</em><em>)</em>) – <p>Leaf node configuration for graphviz. Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>{‘shape’: ‘box’,</dt><dd><p>’style’: ‘filled’,
+‘fillcolor’: ‘#e48038’}</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>kwargs</strong> (<em>Other keywords passed to graphviz graph_attr</em><em>, </em><em>E.g.:</em>) – <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">[</span> <span class="pre">{key}</span> <span class="pre">=</span> <span class="pre">{value}</span> <span class="pre">]</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>graph</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>graphviz.Source</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="callback.html">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rabit.html">gbst.rabit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">gbst.sklearn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="metrics.html" title="previous chapter">gbst.metrics module</a></li>
+      <li>Next: <a href="rabit.html" title="next chapter">gbst.rabit module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/plotting.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.callback module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbst.compat module" href="compat.html" />
+    <link rel="prev" title="GBST" href="gbst.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.callback">
+<span id="gbst-callback-module"></span><h1>gbst.callback module<a class="headerlink" href="#module-gbst.callback" title="Permalink to this headline">¶</a></h1>
+<p>Training Library containing training routines.</p>
+<dl class="function">
+<dt id="gbst.callback.early_stop">
+<code class="sig-prename descclassname">gbst.callback.</code><code class="sig-name descname">early_stop</code><span class="sig-paren">(</span><em class="sig-param">stopping_rounds</em>, <em class="sig-param">maximize=False</em>, <em class="sig-param">verbose=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.callback.early_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a callback that activates early stoppping.</p>
+<p>Validation error needs to decrease at least
+every <strong>stopping_rounds</strong> round(s) to continue training.
+Requires at least one item in <strong>evals</strong>.
+If there’s more than one, will use the last.
+Returns the model from the last iteration (not the best one).
+If early stopping occurs, the model will have three additional fields:
+<code class="docutils literal notranslate"><span class="pre">bst.best_score</span></code>, <code class="docutils literal notranslate"><span class="pre">bst.best_iteration</span></code> and <code class="docutils literal notranslate"><span class="pre">bst.best_ntree_limit</span></code>.
+(Use <code class="docutils literal notranslate"><span class="pre">bst.best_ntree_limit</span></code> to get the correct value if <code class="docutils literal notranslate"><span class="pre">num_parallel_tree</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">num_class</span></code> appears in the parameters)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stopp_rounds</strong> (<em>int</em>) – The stopping rounds before the trend occur.</p></li>
+<li><p><strong>maximize</strong> (<em>bool</em>) – Whether to maximize evaluation metric.</p></li>
+<li><p><strong>verbose</strong> (<em>optional</em><em>, </em><em>bool</em>) – Whether to print message about early stopping information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The requested callback function.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.callback.print_evaluation">
+<code class="sig-prename descclassname">gbst.callback.</code><code class="sig-name descname">print_evaluation</code><span class="sig-paren">(</span><em class="sig-param">period=1</em>, <em class="sig-param">show_stdv=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.callback.print_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a callback that print evaluation result.</p>
+<p>We print the evaluation results every <strong>period</strong> iterations
+and on the first and the last iterations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>period</strong> (<em>int</em>) – The period to log the evaluation results</p></li>
+<li><p><strong>show_stdv</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether show stdv if provided</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – A callback that print evaluation every period iterations.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.callback.record_evaluation">
+<code class="sig-prename descclassname">gbst.callback.</code><code class="sig-name descname">record_evaluation</code><span class="sig-paren">(</span><em class="sig-param">eval_result</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.callback.record_evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a call back that records the evaluation history into <strong>eval_result</strong>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>eval_result</strong> (<em>dict</em>) – A dictionary to store the evaluation results.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The requested callback function.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="gbst.callback.reset_learning_rate">
+<code class="sig-prename descclassname">gbst.callback.</code><code class="sig-name descname">reset_learning_rate</code><span class="sig-paren">(</span><em class="sig-param">learning_rates</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.callback.reset_learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset learning rate after iteration 1</p>
+<p>NOTE: the initial learning rate will still take in-effect on first iteration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>learning_rates</strong> (<em>list</em><em> or </em><em>function</em>) – <p>List of learning rate for each boosting round
+or a customized function that calculates eta in terms of
+current number of round and the total number of boosting round (e.g.
+yields learning rate decay)</p>
+<ul class="simple">
+<li><p>list <code class="docutils literal notranslate"><span class="pre">l</span></code>: <code class="docutils literal notranslate"><span class="pre">eta</span> <span class="pre">=</span> <span class="pre">l[boosting_round]</span></code></p></li>
+<li><p>function <code class="docutils literal notranslate"><span class="pre">f</span></code>: <code class="docutils literal notranslate"><span class="pre">eta</span> <span class="pre">=</span> <span class="pre">f(boosting_round,</span> <span class="pre">num_boost_round)</span></code></p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The requested callback function.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>function</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">gbst.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rabit.html">gbst.rabit module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sklearn.html">gbst.sklearn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="gbst.html" title="previous chapter">GBST</a></li>
+      <li>Next: <a href="compat.html" title="next chapter">gbst.compat module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/callback.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

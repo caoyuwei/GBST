@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>gbst.sklearn module &#8212; GBST 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="gbst.training module" href="training.html" />
+    <link rel="prev" title="gbst.rabit module" href="rabit.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gbst.sklearn">
+<span id="gbst-sklearn-module"></span><h1>gbst.sklearn module<a class="headerlink" href="#module-gbst.sklearn" title="Permalink to this headline">¶</a></h1>
+<p>Scikit-Learn Wrapper interface for GBST.</p>
+<dl class="class">
+<dt id="gbst.sklearn.gbstModel">
+<em class="property">class </em><code class="sig-prename descclassname">gbst.sklearn.</code><code class="sig-name descname">gbstModel</code><span class="sig-paren">(</span><em class="sig-param">max_depth=5</em>, <em class="sig-param">learning_rate=0.1</em>, <em class="sig-param">n_estimators=100</em>, <em class="sig-param">verbosity=1</em>, <em class="sig-param">objective='multi:survtree'</em>, <em class="sig-param">booster='gbtree'</em>, <em class="sig-param">tree_method='auto'</em>, <em class="sig-param">n_jobs=1</em>, <em class="sig-param">gamma=0</em>, <em class="sig-param">min_child_weight=1</em>, <em class="sig-param">max_delta_step=0</em>, <em class="sig-param">subsample=1</em>, <em class="sig-param">colsample_bytree=1</em>, <em class="sig-param">colsample_bylevel=1</em>, <em class="sig-param">colsample_bynode=1</em>, <em class="sig-param">reg_alpha=0</em>, <em class="sig-param">reg_lambda=1</em>, <em class="sig-param">scale_pos_weight=1</em>, <em class="sig-param">base_score=0.5</em>, <em class="sig-param">random_state=0</em>, <em class="sig-param">missing=None</em>, <em class="sig-param">num_parallel_tree=1</em>, <em class="sig-param">importance_type='gain'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">sklearn.base.BaseEstimator</span></code></p>
+<p>Implementation of the Scikit-Learn API for GBST.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_depth</strong> (<em>int</em>) – Maximum tree depth for base learners.</p></li>
+<li><p><strong>learning_rate</strong> (<em>float</em>) – Boosting learning rate (xgb’s “eta”)</p></li>
+<li><p><strong>n_estimators</strong> (<em>int</em>) – Number of trees to fit.</p></li>
+<li><p><strong>verbosity</strong> (<em>int</em>) – The degree of verbosity. Valid values are 0 (silent) - 3 (debug).</p></li>
+<li><p><strong>objective</strong> (<em>string</em><em> or </em><em>callable</em>) – Specify the learning task and the corresponding learning objective or
+a custom objective function to be used (see note below).</p></li>
+<li><p><strong>booster</strong> (<em>string</em>) – Specify which booster to use: gbtree, gblinear or dart.</p></li>
+<li><p><strong>tree_method</strong> (<em>string</em>) – Specify which tree method to use.  Default to auto.  If this parameter
+is set to default, gbst will choose the most conservative option
+available.  It’s recommended to study this option from parameters
+document.</p></li>
+<li><p><strong>n_jobs</strong> (<em>int</em>) – Number of parallel threads used to run gbst.</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) – Minimum loss reduction required to make a further partition on a leaf node of the tree.</p></li>
+<li><p><strong>min_child_weight</strong> (<em>int</em>) – Minimum sum of instance weight(hessian) needed in a child.</p></li>
+<li><p><strong>max_delta_step</strong> (<em>int</em>) – Maximum delta step we allow each tree’s weight estimation to be.</p></li>
+<li><p><strong>subsample</strong> (<em>float</em>) – Subsample ratio of the training instance.</p></li>
+<li><p><strong>colsample_bytree</strong> (<em>float</em>) – Subsample ratio of columns when constructing each tree.</p></li>
+<li><p><strong>colsample_bylevel</strong> (<em>float</em>) – Subsample ratio of columns for each level.</p></li>
+<li><p><strong>colsample_bynode</strong> (<em>float</em>) – Subsample ratio of columns for each split.</p></li>
+<li><p><strong>reg_alpha</strong> (<em>float</em><em> (</em><em>xgb's alpha</em><em>)</em>) – L1 regularization term on weights</p></li>
+<li><p><strong>reg_lambda</strong> (<em>float</em><em> (</em><em>xgb's lambda</em><em>)</em>) – L2 regularization term on weights</p></li>
+<li><p><strong>scale_pos_weight</strong> (<em>float</em>) – Balancing of positive and negative weights.</p></li>
+<li><p><strong>base_score</strong> – The initial prediction score of all instances, global bias.</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – <p>Random number seed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using gblinear booster with shotgun updater is nondeterministic as
+it uses Hogwild algorithm.</p>
+</div>
+</p></li>
+<li><p><strong>missing</strong> (<em>float</em><em>, </em><em>optional</em>) – Value in the data which needs to be present as a missing value. If
+None, defaults to np.nan.</p></li>
+<li><p><strong>num_parallel_tree</strong> (<em>int</em>) – Used for boosting random forest.</p></li>
+<li><p><strong>importance_type</strong> (<em>string</em><em>, </em><em>default &quot;gain&quot;</em>) – The feature importance type for the feature_importances_ property:
+either “gain”, “weight”, “cover”, “total_gain” or “total_cover”.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – <p>Keyword arguments for GBST Booster object.
+Attempting to set a parameter via the constructor args and **kwargs dict simultaneously
+will result in a TypeError.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>**kwargs unsupported by scikit-learn</p>
+<p>**kwargs is unsupported by scikit-learn.  We do not guarantee that parameters
+passed via this argument will interact properly with scikit-learn.</p>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A custom objective function can be provided for the <code class="docutils literal notranslate"><span class="pre">objective</span></code>
+parameter. In this case, it should have the signature
+<code class="docutils literal notranslate"><span class="pre">objective(y_true,</span> <span class="pre">y_pred)</span> <span class="pre">-&gt;</span> <span class="pre">grad,</span> <span class="pre">hess</span></code>:</p>
+<dl class="simple">
+<dt>y_true: array_like of shape [n_samples]</dt><dd><p>The target values</p>
+</dd>
+<dt>y_pred: array_like of shape [n_samples]</dt><dd><p>The predicted values</p>
+</dd>
+<dt>grad: array_like of shape [n_samples]</dt><dd><p>The value of the gradient for each sample point.</p>
+</dd>
+<dt>hess: array_like of shape [n_samples]</dt><dd><p>The value of the second derivative for each sample point</p>
+</dd>
+</dl>
+</div>
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.apply">
+<code class="sig-name descname">apply</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">ntree_limit=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the predicted leaf every tree for each sample.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array_like</em><em>, </em><em>shape=</em><em>[</em><em>n_samples</em><em>, </em><em>n_features</em><em>]</em>) – Input features matrix.</p></li>
+<li><p><strong>ntree_limit</strong> (<em>int</em>) – Limit number of trees in the prediction; defaults to 0 (use all trees).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>X_leaves</strong> – For each datapoint x in X and for each tree, return the index of the
+leaf x ends up in. Leaves are numbered within
+<code class="docutils literal notranslate"><span class="pre">[0;</span> <span class="pre">2**(self.max_depth+1))</span></code>, possibly with gaps in the numbering.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array_like, shape=[n_samples, n_trees]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.coef_">
+<em class="property">property </em><code class="sig-name descname">coef_</code><a class="headerlink" href="#gbst.sklearn.gbstModel.coef_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coefficients property</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Coefficients are defined only for linear learners</p>
+<p>Coefficients are only defined when the linear model is chosen as base
+learner (<cite>booster=gblinear</cite>). It is not defined for other base learner types, such
+as tree learners (<cite>booster=gbtree</cite>).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>coef_</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array of shape <code class="docutils literal notranslate"><span class="pre">[n_features]</span></code> or <code class="docutils literal notranslate"><span class="pre">[n_classes,</span> <span class="pre">n_features]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.evals_result">
+<code class="sig-name descname">evals_result</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.evals_result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the evaluation results.</p>
+<p>If <strong>eval_set</strong> is passed to the <cite>fit</cite> function, you can call
+<code class="docutils literal notranslate"><span class="pre">evals_result()</span></code> to get evaluation results for all passed <strong>eval_sets</strong>.
+When <strong>eval_metric</strong> is also passed to the <cite>fit</cite> function, the
+<strong>evals_result</strong> will contain the <strong>eval_metrics</strong> passed to the <cite>fit</cite> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>evals_result</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dictionary</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">param_dist</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}</span>
+
+<span class="n">clf</span> <span class="o">=</span> <span class="n">gbst</span><span class="o">.</span><span class="n">gbstModel</span><span class="p">(</span><span class="o">**</span><span class="n">param_dist</span><span class="p">)</span>
+
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span>
+        <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">),</span> <span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)],</span>
+        <span class="n">eval_metric</span><span class="o">=</span><span class="s1">&#39;logloss&#39;</span><span class="p">,</span>
+        <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">evals_result</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">evals_result</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The variable <strong>evals_result</strong> will contain:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;validation_0&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;logloss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.604835&#39;</span><span class="p">,</span> <span class="s1">&#39;0.531479&#39;</span><span class="p">]},</span>
+<span class="s1">&#39;validation_1&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;logloss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;0.41965&#39;</span><span class="p">,</span> <span class="s1">&#39;0.17686&#39;</span><span class="p">]}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.feature_importances_">
+<em class="property">property </em><code class="sig-name descname">feature_importances_</code><a class="headerlink" href="#gbst.sklearn.gbstModel.feature_importances_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Feature importances property</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Feature importance is defined only for tree boosters</p>
+<p>Feature importance is only defined when the decision tree model is chosen as base
+learner (<cite>booster=gbtree</cite>). It is not defined for other base learner types, such
+as linear learners (<cite>booster=gblinear</cite>).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>feature_importances_</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array of shape <code class="docutils literal notranslate"><span class="pre">[n_features]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param">X</em>, <em class="sig-param">y</em>, <em class="sig-param">sample_weight=None</em>, <em class="sig-param">eval_set=None</em>, <em class="sig-param">eval_metric=None</em>, <em class="sig-param">early_stopping_rounds=None</em>, <em class="sig-param">verbose=True</em>, <em class="sig-param">gbst_model=None</em>, <em class="sig-param">sample_weight_eval_set=None</em>, <em class="sig-param">callbacks=None</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit gradient boosting model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array_like</em>) – Feature matrix</p></li>
+<li><p><strong>y</strong> (<em>array_like</em>) – Labels</p></li>
+<li><p><strong>sample_weight</strong> (<em>array_like</em>) – instance weights</p></li>
+<li><p><strong>eval_set</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of (X, y) tuple pairs to use as validation sets, for which
+metrics will be computed.
+Validation metrics will help us track the performance of the model.</p></li>
+<li><p><strong>sample_weight_eval_set</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of the form [L_1, L_2, …, L_n], where each L_i is a list of
+instance weights on the i-th validation set.</p></li>
+<li><p><strong>eval_metric</strong> (<em>str</em><em>, </em><em>list of str</em><em>, or </em><em>callable</em><em>, </em><em>optional</em>) – If a str, should be a built-in evaluation metric to use. See
+doc/parameter.rst.
+If a list of str, should be the list of multiple built-in evaluation metrics
+to use.
+If callable, a custom evaluation metric. The call
+signature is <code class="docutils literal notranslate"><span class="pre">func(y_predicted,</span> <span class="pre">y_true)</span></code> where <code class="docutils literal notranslate"><span class="pre">y_true</span></code> will be a
+DMatrix object such that you may need to call the <code class="docutils literal notranslate"><span class="pre">get_label</span></code>
+method. It must return a str, value pair where the str is a name
+for the evaluation and value is the value of the evaluation
+function. The callable custom objective is always minimized.</p></li>
+<li><p><strong>early_stopping_rounds</strong> (<em>int</em>) – Activates early stopping. Validation metric needs to improve at least once in
+every <strong>early_stopping_rounds</strong> round(s) to continue training.
+Requires at least one item in <strong>eval_set</strong>.
+The method returns the model from the last iteration (not the best one).
+If there’s more than one item in <strong>eval_set</strong>, the last entry will be used
+for early stopping.
+If there’s more than one metric in <strong>eval_metric</strong>, the last metric will be
+used for early stopping.
+If early stopping occurs, the model will have three additional fields:
+<code class="docutils literal notranslate"><span class="pre">clf.best_score</span></code>, <code class="docutils literal notranslate"><span class="pre">clf.best_iteration</span></code> and <code class="docutils literal notranslate"><span class="pre">clf.best_ntree_limit</span></code>.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – If <cite>verbose</cite> and an evaluation set is used, writes the evaluation
+metric measured on the validation set to stderr.</p></li>
+<li><p><strong>gbst_model</strong> (<em>str</em>) – file name of stored GBST model or ‘Booster’ instance gbst model to be
+loaded before training (allows training continuation).</p></li>
+<li><p><strong>callbacks</strong> (<em>list of callback functions</em>) – <p>List of callback functions that are applied at end of each iteration.
+It is possible to use predefined callbacks by using <span class="xref std std-ref">callback_api</span>.
+Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">xgb</span><span class="o">.</span><span class="n">callback</span><span class="o">.</span><span class="n">reset_learning_rate</span><span class="p">(</span><span class="n">custom_rates</span><span class="p">)]</span>
+</pre></div>
+</div>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.get_booster">
+<code class="sig-name descname">get_booster</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.get_booster" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the underlying xgboost Booster of this model.</p>
+<p>This will raise an exception when fit was not called</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>booster</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>a xgboost booster of underlying model</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.get_gbst_params">
+<code class="sig-name descname">get_gbst_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.get_gbst_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get gbst type parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.get_num_boosting_rounds">
+<code class="sig-name descname">get_num_boosting_rounds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.get_num_boosting_rounds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the number of gbst boosting rounds.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.get_params">
+<code class="sig-name descname">get_params</code><span class="sig-paren">(</span><em class="sig-param">deep=False</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.get_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.intercept_">
+<em class="property">property </em><code class="sig-name descname">intercept_</code><a class="headerlink" href="#gbst.sklearn.gbstModel.intercept_" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intercept (bias) property</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Intercept is defined only for linear learners</p>
+<p>Intercept (bias) is only defined when the linear model is chosen as base
+learner (<cite>booster=gblinear</cite>). It is not defined for other base learner types, such
+as tree learners (<cite>booster=gbtree</cite>).</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><strong>intercept_</strong></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>array of shape <code class="docutils literal notranslate"><span class="pre">(1,)</span></code> or <code class="docutils literal notranslate"><span class="pre">[n_classes]</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.load_model">
+<code class="sig-name descname">load_model</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the model from a file.</p>
+<p>The model is loaded from an XGBoost internal binary format which is
+a variant of XGBoost interface. Auxiliary attributes of
+the Python Booster object (such as feature names) will not be loaded.
+Label encodings (text labels to numeric labels) will be also lost.
+<strong>If you are using only the Python interface, we recommend pickling the
+model object for best results.</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>string</em><em> or </em><em>a memory buffer</em>) – Input file name or memory buffer(see also save_raw)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">output_margin=False</em>, <em class="sig-param">ntree_limit=None</em>, <em class="sig-param">validate_features=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict with <cite>data</cite>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is not thread safe.</p>
+<p>For each booster object, predict can only be called from one thread.
+If you want to run prediction using multiple thread, call <code class="docutils literal notranslate"><span class="pre">xgb.copy()</span></code> to make copies
+of model object and then call <code class="docutils literal notranslate"><span class="pre">predict()</span></code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">predict()</span></code> with DART booster</p>
+<p>If the booster object is DART type, <code class="docutils literal notranslate"><span class="pre">predict()</span></code> will perform dropouts, i.e. only
+some of the trees will be evaluated. This will produce incorrect results if <code class="docutils literal notranslate"><span class="pre">data</span></code> is
+not the training data. To obtain correct results on test sets, set <code class="docutils literal notranslate"><span class="pre">ntree_limit</span></code> to
+a nonzero value, e.g.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">preds</span> <span class="o">=</span> <span class="n">bst</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dtest</span><span class="p">,</span> <span class="n">ntree_limit</span><span class="o">=</span><span class="n">num_round</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>numpy.array/scipy.sparse</em>) – Data to predict with</p></li>
+<li><p><strong>output_margin</strong> (<em>bool</em>) – Whether to output the raw untransformed margin value.</p></li>
+<li><p><strong>ntree_limit</strong> (<em>int</em>) – Limit number of trees in the prediction; defaults to best_ntree_limit if defined
+(i.e. it has been trained with early stopping), otherwise 0 (use all trees).</p></li>
+<li><p><strong>validate_features</strong> (<em>bool</em>) – When this is True, validate that the Booster’s and data’s feature_names are identical.
+Otherwise, it is assumed that the feature_names are the same.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>prediction</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.predict_hazard">
+<code class="sig-name descname">predict_hazard</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">ntree_limit=None</em>, <em class="sig-param">validate_features=True</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.predict_hazard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict the probability of each <cite>data</cite> example being of a given class.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is not thread safe</p>
+<p>For each booster object, predict can only be called from one thread.
+If you want to run prediction using multiple thread, call <code class="docutils literal notranslate"><span class="pre">xgb.copy()</span></code> to make copies
+of model object and then call predict</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference internal" href="core.html#gbst.core.DMatrix" title="gbst.core.DMatrix"><em>DMatrix</em></a>) – The dmatrix storing the input.</p></li>
+<li><p><strong>ntree_limit</strong> (<em>int</em>) – Limit number of trees in the prediction; defaults to best_ntree_limit if defined
+(i.e. it has been trained with early stopping), otherwise 0 (use all trees).</p></li>
+<li><p><strong>validate_features</strong> (<em>bool</em>) – When this is True, validate that the Booster’s and data’s feature_names are identical.
+Otherwise, it is assumed that the feature_names are the same.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>prediction</strong> – a numpy array with the probability of each data example being of a given class.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.save_model">
+<code class="sig-name descname">save_model</code><span class="sig-paren">(</span><em class="sig-param">fname</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.save_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model to a file.</p>
+<p>The model is saved in an XGBoost internal binary format which is
+universal among the various XGBoost interfaces. Auxiliary attributes of
+the Python Booster object (such as feature names) will not be loaded.
+Label encodings (text labels to numeric labels) will be also lost.
+<strong>If you are using only the Python interface, we recommend pickling the
+model object for best results.</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fname</strong> (<em>string</em>) – Output file name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="gbst.sklearn.gbstModel.set_params">
+<code class="sig-name descname">set_params</code><span class="sig-paren">(</span><em class="sig-param">**params</em><span class="sig-paren">)</span><a class="headerlink" href="#gbst.sklearn.gbstModel.set_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the parameters of this estimator.
+Modification of the sklearn method to allow unknown kwargs. This allows using
+the full range of gbst parameters that are not defined as member variables
+in sklearn grid search.
+:returns:
+:rtype: self</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">GBST</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="gbst.html">GBST</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="callback.html">gbst.callback module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compat.html">gbst.compat module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html">gbst.core module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libpath.html">gbst.libpath module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">gbst.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">gbst.plotting module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rabit.html">gbst.rabit module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">gbst.sklearn module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="training.html">gbst.training module</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="gbst.html">GBST</a><ul>
+      <li>Previous: <a href="rabit.html" title="previous chapter">gbst.rabit module</a></li>
+      <li>Next: <a href="training.html" title="next chapter">gbst.training module</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, HR Luo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/sklearn.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
