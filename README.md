@@ -25,7 +25,7 @@ Installation
     in the repository "./gbst_package".
 
 - Compile from source
-    The folder gbst_src contains the source code to compile the library file. To build it from source, we start from making a working directory:
+    The folder gbst_src contains the source codes to compile the library file. To build it from source, we start from making a working directory:
     ```
     cd gbst_src
     mkdir build
